@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, deleteTask, updateTask } from "./redux/tasks/taskSlice";
+import { login, logout } from "./redux/users/userSlice";
 
 function App() {
   const taskList = useSelector((state) => Object.values(state.tasks.entities));
@@ -48,7 +49,7 @@ function App() {
                 dispatch(
                   updateTask({
                     id: task.id,
-                    title: updateTitle,
+                    changes: { title: updateTitle },
                   })
                 )
               }
@@ -57,6 +58,14 @@ function App() {
             </button>
           </div>
         ))}
+      </div>
+
+      <div>
+        <h3>User Login</h3>
+        <button onClick={() => dispatch(login("User is logged In"))}>
+          Login
+        </button>
+        <button onClick={() => dispatch(logout())}>Logout</button>
       </div>
     </div>
   );
